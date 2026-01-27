@@ -55,7 +55,7 @@ export default function UserModal({ userInfo, onLogout }: UserDropdownProps) {
   // ส่วนเนื้อหา Modal (แยกออกมาเพื่อให้ใช้ Portal ได้ง่าย)
   const modalContent = (
     <div 
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+      className="fixed inset-0 z-[9999]  flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200"
       onClick={(e) => {
         if (e.target === e.currentTarget) setIsOpen(false);
       }}
@@ -71,12 +71,12 @@ export default function UserModal({ userInfo, onLogout }: UserDropdownProps) {
 
         <div className="p-6 flex flex-col items-center gap-4">
           <div className="w-full flex flex-col items-center text-center pb-4 border-b border-dashed border-gray-300 dark:border-military-600">
-            <div className="h-20 w-20 bg-sand-200 rounded-full flex items-center justify-center text-military-900 mb-3 shadow-md border-4 border-white dark:border-military-800">
+            <div className="h-20 w-20 bg-sand-200 rounded-full flex items-center justify-center text-black mb-3 shadow-md border-4 border-white dark:border-military-800">
                 <User size={40} />
             </div>
             <div className="space-y-1">
               <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">เข้าสู่ระบบโดย</p>
-              <p className="text-xl font-bold text-primary dark:text-sand-100 break-words">
+              <p className="text-xl font-bold text-black ">
                 {userInfo?.wardname || 'User Name'}
               </p>
             </div>
@@ -87,20 +87,20 @@ export default function UserModal({ userInfo, onLogout }: UserDropdownProps) {
               onClick={() => handleNavigate('/report-system')}
               className="w-full flex items-center gap-3 p-3 rounded-xl bg-blue-50 dark:bg-military-800 text-primary dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-military-700 transition-all group"
             >
-              <div className="p-2 bg-white dark:bg-military-900 rounded-lg shadow-sm group-hover:scale-110 transition-transform">
+              <div className="p-2 bg-white dark:bg-military-900 rounded-lg shadow-sm group-hover:scale-110 transition-transform text-black">
                 <ShieldCheck size={20} />
               </div>
-              <span className="font-semibold flex-1 text-left">แจ้งปัญหาการใช้งาน</span>
+              <span className="font-semibold flex-1 text-left text-black">แจ้งปัญหาการใช้งาน</span>
             </button>
 
             <button 
               onClick={() => handleNavigate('/profile')}
               className="w-full flex items-center gap-3 p-3 rounded-xl bg-blue-50 dark:bg-military-800 text-primary dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-military-700 transition-all group"
             >
-                <div className="p-2 bg-white dark:bg-military-900 rounded-lg shadow-sm group-hover:scale-110 transition-transform">
+                <div className="p-2 bg-white text-black dark:bg-military-900 rounded-lg shadow-sm group-hover:scale-110 transition-transform">
                 <Settings size={20} />
               </div>
-              <span className="font-semibold flex-1 text-left">ตั้งค่าโปรไฟล์</span>
+              <span className="font-semibold flex-1 text-left text-black">ตั้งค่าโปรไฟล์</span>
             </button>
           </div>
 
@@ -123,14 +123,14 @@ export default function UserModal({ userInfo, onLogout }: UserDropdownProps) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className={`w-40 cursor-pointer flex items-center justify-center gap-2 px-3 py-2 rounded-lg border-2 transition-all duration-300
+        className={`w-40 cursor-pointer border-amber-600 flex items-center justify-center gap-2 px-3 py-2 rounded-lg border-2 transition-all duration-300
           ${isOpen 
             ? 'bg-military-800 text-sand-200 border-sand-300 shadow-lg' 
-            : 'bg-military-800/50 text-sand-200 border-transparent hover:border-sand-300'
+            : 'bg-military-800/50 text-sand-200 border-2 border-sand-300 hover:border-sand-300'
           }
         `}
       >
-        <div className="p-1 rounded-full bg-sand-200 text-military-900">
+        <div className="p-1 rounded-full bg-sand-200 text-military-900 border-2 border-amber-600">
           <User size={16} />
         </div>
         <span className="font-bold text-sm uppercase tracking-wide max-w-[150px] truncate md:block">
