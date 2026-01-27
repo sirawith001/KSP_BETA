@@ -564,124 +564,146 @@ export default function OpderAddWorkPage() {
           </div>
         )}
 
-        {/* 🎨 EDIT MODAL - Modern Design */}
+        {/* 🎨 EDIT MODAL - Fully Responsive (Grid System) */}
         {isEditModalOpen && editFormData && (
-          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 animate-fadeIn">
-            <div className="bg-white rounded-2xl shadow-2xl border-2 border-gray-800 w-full max-w-4xl max-h-[90vh] overflow-y-auto animate-slideUp">
-              {/* Modal Header */}
-              <div className="bg-gradient-to-r from-gray-800 to-gray-700 text-white px-6 py-4 flex justify-between items-center sticky top-0 z-10 shadow-md rounded-t-2xl">
-                <div>
-                  <h3 className="text-xl font-bold text-yellow-400 flex items-center gap-2">
-                    <span>✏️</span>
-                    แก้ไขข้อมูล: {
-                      editFormData.catid && categories.find(c => c.catid === editFormData.catid) 
-                        ? getCategoryLabel(categories.find(c => c.catid === editFormData.catid))
-                        : '-'
-                    }
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn overflow-y-auto">
+            {/* เพิ่ม my-auto เพื่อจัดกึ่งกลางแนวตั้งเมื่อจอสูง และ margin เพื่อไม่ให้ชิดขอบมือถือ */}
+            <div className="bg-white rounded-2xl shadow-2xl border-2 border-gray-800 w-full max-w-5xl my-auto animate-slideUp">
+              
+              {/* --- Modal Header --- */}
+              <div className="bg-gradient-to-r from-gray-800 to-gray-700 text-white px-4 sm:px-6 py-4 flex justify-between items-start sm:items-center sticky top-0 z-20 shadow-md rounded-t-2xl">
+                <div className="pr-4">
+                  <h3 className="text-lg sm:text-xl font-bold text-yellow-400 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                    <span className="hidden sm:inline">✏️</span>
+                    <span>
+                      แก้ไขข้อมูล: {
+                        editFormData.catid && categories.find(c => c.catid === editFormData.catid) 
+                          ? getCategoryLabel(categories.find(c => c.catid === editFormData.catid))
+                          : '-'
+                      }
+                    </span>
                   </h3>
-                  <p className="text-gray-300 text-sm mt-1">
+                  <p className="text-gray-300 text-xs sm:text-sm mt-1">
                     📅 วันที่ {formatDateThai(editFormData.wopderdate)}
                   </p>
                 </div>
                 <button 
                   onClick={() => setIsEditModalOpen(false)} 
-                  className="text-gray-400 hover:text-white font-bold text-2xl transition-colors hover:rotate-90 transform duration-200"
+                  className="text-gray-400 hover:text-white font-bold text-xl sm:text-2xl transition-colors hover:rotate-90 transform duration-200 p-1"
                 >
                   ✕
                 </button>
               </div>
 
-              {/* Modal Body */}
-              <div className="p-6 bg-gradient-to-br from-gray-50 to-blue-50">
-                <div className="bg-white p-4 border-2 border-blue-300 rounded-xl shadow-lg">
-                  <table className="w-full text-sm border-collapse">
-                    <thead className="bg-gradient-to-r from-slate-700 to-slate-900 text-white">
-                      <tr>
-                        <th className="border-2 border-slate-500/30 px-3 py-3 text-center font-bold">🩺 รับตรวจ</th>
-                        <th className="border-2 border-slate-500/30 px-3 py-3 text-center font-bold">💉 หัตถการ</th>
-                        <th className="border-2 border-slate-500/30 px-3 py-3 text-center font-bold">🏥 รับป่วย</th>
-                        <th className="border-2 border-slate-500/30 px-3 py-3 text-center font-bold">🚑 ส่งต่อ</th>
-                        <th className="border-2 border-slate-500/30 px-3 py-3 text-center font-bold">💔 เสียชีวิต</th>
-                        <th className="border-2 border-slate-500/30 px-3 py-3 text-center font-bold">📝 หมายเหตุ</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="bg-gradient-to-r from-blue-50 to-cyan-50">
-                        <td className="border-2 border-blue-200 p-2">
-                          <input 
-                            type="number" 
-                            value={editFormData.wopderg1} 
-                            onChange={(e) => handleEditChange('wopderg1', e.target.value)}
-                            className="w-full bg-white border-2 border-blue-400 text-center rounded-lg px-2 py-3 font-bold text-lg text-blue-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-600 outline-none transition-all shadow-sm"
-                            min="0"
-                          />
-                        </td>
-                        <td className="border-2 border-blue-200 p-2">
-                          <input 
-                            type="number" 
-                            value={editFormData.wopderg2} 
-                            onChange={(e) => handleEditChange('wopderg2', e.target.value)}
-                            className="w-full bg-white border-2 border-green-400 text-center rounded-lg px-2 py-3 font-bold text-lg text-green-700 focus:ring-2 focus:ring-green-500 focus:border-green-600 outline-none transition-all shadow-sm"
-                            min="0"
-                          />
-                        </td>
-                        <td className="border-2 border-blue-200 p-2">
-                          <input 
-                            type="number" 
-                            value={editFormData.wopderg3} 
-                            onChange={(e) => handleEditChange('wopderg3', e.target.value)}
-                            className="w-full bg-white border-2 border-purple-400 text-center rounded-lg px-2 py-3 font-bold text-lg text-purple-700 focus:ring-2 focus:ring-purple-500 focus:border-purple-600 outline-none transition-all shadow-sm"
-                            min="0"
-                          />
-                        </td>
-                        <td className="border-2 border-blue-200 p-2">
-                          <input 
-                            type="number" 
-                            value={editFormData.wopderg4} 
-                            onChange={(e) => handleEditChange('wopderg4', e.target.value)}
-                            className="w-full bg-white border-2 border-orange-400 text-center rounded-lg px-2 py-3 font-bold text-lg text-orange-700 focus:ring-2 focus:ring-orange-500 focus:border-orange-600 outline-none transition-all shadow-sm"
-                            min="0"
-                          />
-                        </td>
-                        <td className="border-2 border-blue-200 p-2">
-                          <input 
-                            type="number" 
-                            value={editFormData.wopderg5} 
-                            onChange={(e) => handleEditChange('wopderg5', e.target.value)}
-                            className="w-full bg-white border-2 border-red-400 text-center rounded-lg px-2 py-3 font-bold text-lg text-red-700 focus:ring-2 focus:ring-red-500 focus:border-red-600 outline-none transition-all shadow-sm"
-                            min="0"
-                          />
-                        </td>
-                        <td className="border-2 border-blue-200 p-2">
-                          <input 
-                            type="text" 
-                            value={editFormData.wopderg6 || ''} 
-                            onChange={(e) => setEditFormData({...editFormData, wopderg6: e.target.value})}
-                            className="w-full bg-white border-2 border-gray-400 rounded-lg px-3 py-3 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all shadow-sm"
-                            placeholder="หมายเหตุ..."
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+              {/* --- Modal Body (Responsive Form) --- */}
+              <div className="p-4 sm:p-6 bg-gradient-to-br from-gray-50 to-blue-50 max-h-[70vh] overflow-y-auto">
+                <div className="bg-white p-4 sm:p-6 border-2 border-blue-300 rounded-xl shadow-lg">
+                  
+                  {/* Header Row (ซ่อนบนมือถือ โชว์บนจอใหญ่) */}
+                  <div className="hidden lg:grid grid-cols-6 gap-4 mb-4 text-center font-bold text-slate-700 bg-slate-100 p-3 rounded-lg border border-slate-200">
+                    <div>🩺 รับตรวจ</div>
+                    <div>💉 หัตถการ</div>
+                    <div>🏥 รับป่วย</div>
+                    <div>🚑 ส่งต่อ</div>
+                    <div>💔 เสียชีวิต</div>
+                    <div>📝 หมายเหตุ</div>
+                  </div>
+
+                  {/* Input Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 sm:gap-6 lg:gap-4 items-start">
+                    
+                    {/* Field 1: รับตรวจ */}
+                    <div className="space-y-1">
+                      <label className="lg:hidden block text-sm font-bold text-blue-800">🩺 รับตรวจ</label>
+                      <input 
+                        type="number" 
+                        value={editFormData.wopderg1} 
+                        onChange={(e) => handleEditChange('wopderg1', e.target.value)}
+                        className="w-full bg-white border-2 border-blue-400 text-center rounded-lg px-2 py-3 font-bold text-lg text-blue-700 focus:ring-2 focus:ring-blue-500 outline-none shadow-sm"
+                        min="0"
+                      />
+                    </div>
+
+                    {/* Field 2: หัตถการ */}
+                    <div className="space-y-1">
+                      <label className="lg:hidden block text-sm font-bold text-green-800">💉 หัตถการ</label>
+                      <input 
+                        type="number" 
+                        value={editFormData.wopderg2} 
+                        onChange={(e) => handleEditChange('wopderg2', e.target.value)}
+                        className="w-full bg-white border-2 border-green-400 text-center rounded-lg px-2 py-3 font-bold text-lg text-green-700 focus:ring-2 focus:ring-green-500 outline-none shadow-sm"
+                        min="0"
+                      />
+                    </div>
+
+                    {/* Field 3: รับป่วย */}
+                    <div className="space-y-1">
+                      <label className="lg:hidden block text-sm font-bold text-purple-800">🏥 รับป่วย</label>
+                      <input 
+                        type="number" 
+                        value={editFormData.wopderg3} 
+                        onChange={(e) => handleEditChange('wopderg3', e.target.value)}
+                        className="w-full bg-white border-2 border-purple-400 text-center rounded-lg px-2 py-3 font-bold text-lg text-purple-700 focus:ring-2 focus:ring-purple-500 outline-none shadow-sm"
+                        min="0"
+                      />
+                    </div>
+
+                    {/* Field 4: ส่งต่อ */}
+                    <div className="space-y-1">
+                      <label className="lg:hidden block text-sm font-bold text-orange-800">🚑 ส่งต่อ</label>
+                      <input 
+                        type="number" 
+                        value={editFormData.wopderg4} 
+                        onChange={(e) => handleEditChange('wopderg4', e.target.value)}
+                        className="w-full bg-white border-2 border-orange-400 text-center rounded-lg px-2 py-3 font-bold text-lg text-orange-700 focus:ring-2 focus:ring-orange-500 outline-none shadow-sm"
+                        min="0"
+                      />
+                    </div>
+
+                    {/* Field 5: เสียชีวิต */}
+                    <div className="space-y-1">
+                      <label className="lg:hidden block text-sm font-bold text-red-800">💔 เสียชีวิต</label>
+                      <input 
+                        type="number" 
+                        value={editFormData.wopderg5} 
+                        onChange={(e) => handleEditChange('wopderg5', e.target.value)}
+                        className="w-full bg-white border-2 border-red-400 text-center rounded-lg px-2 py-3 font-bold text-lg text-red-700 focus:ring-2 focus:ring-red-500 outline-none shadow-sm"
+                        min="0"
+                      />
+                    </div>
+
+                    {/* Field 6: หมายเหตุ (บนมือถือให้กว้างเต็มจอ) */}
+                    <div className="space-y-1 sm:col-span-2 lg:col-span-1">
+                      <label className="lg:hidden block text-sm font-bold text-gray-700">📝 หมายเหตุ</label>
+                      <input 
+                        type="text" 
+                        value={editFormData.wopderg6 || ''} 
+                        onChange={(e) => setEditFormData({...editFormData, wopderg6: e.target.value})}
+                        className="w-full bg-white border-2 border-gray-400 rounded-lg px-3 py-3 text-gray-700 focus:ring-2 focus:ring-blue-500 outline-none shadow-sm"
+                        placeholder="ระบุหมายเหตุ..."
+                      />
+                    </div>
+
+                  </div>
                 </div>
               </div>
 
-              {/* Modal Footer */}
-              <div className="bg-gray-100 px-6 py-4 flex justify-end gap-3 border-t border-gray-300 rounded-b-2xl">
+              {/* --- Modal Footer --- */}
+              <div className="bg-gray-100 px-4 sm:px-6 py-4 flex flex-col-reverse sm:flex-row justify-end gap-3 border-t border-gray-300 rounded-b-2xl">
                 <button 
                   onClick={() => setIsEditModalOpen(false)} 
-                  className="px-6 py-2.5 bg-white border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 font-bold shadow transition-all transform hover:scale-105"
+                  className="w-full sm:w-auto px-6 py-2.5 bg-white border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 font-bold shadow transition-all active:scale-95"
                 >
                   ยกเลิก
                 </button>
                 <button 
                   onClick={handleSaveEdit} 
-                  className="px-6 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 font-bold shadow-lg transition-all flex items-center gap-2 transform hover:scale-105"
+                  className="w-full sm:w-auto px-6 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 font-bold shadow-lg transition-all flex items-center justify-center gap-2 transform active:scale-95"
                 >
-                  <span>💾</span> บันทึกการเปลี่ยนแปลง
+                  <span>💾</span> บันทึก
                 </button>
               </div>
+              
             </div>
           </div>
         )}

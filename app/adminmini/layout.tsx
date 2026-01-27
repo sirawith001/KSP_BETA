@@ -321,7 +321,7 @@ function Navbar({ userInfo, onLogout }: { userInfo: any; onLogout: () => void })
               </div>
 
               <button onClick={() => { router.push('/adminmini/sysaddworkadmin'); setIsMenuOpen(false); }} className={`flex items-center gap-3 w-full px-4 py-3 rounded hover:bg-military-700 hover:text-white transition-all text-sm font-semibold uppercase ${getActiveClass('/adminmini/sysaddworkadmin')}`}>
-                <Home size={20} /><span>คนไข้ใน</span>
+                <Home size={20} /><span>ข้อมูลภาระงานคนไข้ใน</span>
               </button>
               <button onClick={() => { router.push('/adminmini/rptallsumadmin'); setIsMenuOpen(false); }} className={`flex items-center gap-3 w-full px-4 py-3 rounded hover:bg-military-700 hover:text-white transition-all text-sm font-semibold uppercase ${getActiveClass('/adminmini/rptallsumadmin')}`}>
                 <FileEdit size={20} /><span>สรุปภาระงาน</span>
