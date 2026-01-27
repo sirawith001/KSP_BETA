@@ -1,0 +1,670 @@
+/* @import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; } */
+
+
+
+
+
+@import "tailwindcss";
+
+/* Base color definitions */
+:root {
+  --background: #fafaf9;
+  --foreground: #2d352d;
+}
+
+/* Dark mode - เพิ่ม .dark class selector */
+.dark {
+  --background: #1a1f1a;
+  --foreground: #e6d9bf;
+}
+
+@theme inline {
+  /* สีทหาร - Military Colors */
+  --color-military-50: #f4f6f4;
+  --color-military-100: #e3e8e3;
+  --color-military-200: #c7d1c7;
+  --color-military-300: #a3b4a3;
+  --color-military-400: #7a937a;
+  --color-military-500: #5a6f5a;
+  --color-military-600: #4a5c4a;
+  --color-military-700: #3d4b3d;
+  --color-military-800: #343e34;
+  --color-military-900: #2d352d;
+  --color-military-950: #1a1f1a;
+  
+  /* สีทราย/กากี - Sand Colors */
+  --color-sand-50: #faf8f3;
+  --color-sand-100: #f3ede0;
+  --color-sand-200: #e6d9bf;
+  --color-sand-300: #d4bf98;
+  --color-sand-400: #c4a876;
+}
+
+/* Body styling with proper dark mode */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@layer base {
+  /* Default light mode */
+  body {
+    @apply bg-gradient-to-br from-military-50 via-sand-50 to-military-100 text-military-900;
+  }
+  
+  /* Dark mode */
+  .dark body {
+    @apply bg-gradient-to-br from-military-900 via-military-950 to-military-800 text-sand-100;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Navbar - Military Style */
+  .nav-military {
+    @apply bg-gradient-to-r from-military-100 to-military-50
+           shadow-lg border-b-4 border-military-800;
+  }
+  .dark .nav-military {
+    @apply from-military-800 to-military-900 border-military-950;
+  }
+  /* ปุ่มสไตล์ทหาร */
+  .btn-military {
+    @apply bg-military-600 hover:bg-military-700 
+           text-white px-6 py-3 rounded font-semibold 
+           transition-all duration-200
+           border-2 border-military-700 hover:border-military-800
+           uppercase tracking-wide text-sm shadow-md;
+  }
+  
+  .dark .btn-military {
+    @apply bg-military-700 hover:bg-military-600 
+           border-military-600 hover:border-military-500;
+  }
+  
+  .btn-military-outline {
+    @apply bg-transparent border-2 border-military-600 
+           text-military-700 hover:bg-military-600 hover:text-white
+           px-6 py-3 rounded font-semibold
+           transition-all duration-200 uppercase tracking-wide text-sm;
+  }
+  
+  .dark .btn-military-outline {
+    @apply text-military-300 hover:bg-military-700;
+  }
+  
+  /* Card สไตล์ทหาร */
+  .card-military {
+    @apply bg-white/90 rounded-2xl shadow-xl
+           border border-military-200 backdrop-blur-lg
+           p-6 transition-colors duration-300;
+  }
+  
+  .dark .card-military {
+    @apply bg-military-800/90 border-military-700;
+  }
+  
+  /* Badge/Tag สไตล์ทหาร */
+  .badge-military {
+    @apply inline-flex items-center px-3 py-1 
+           rounded text-xs font-bold uppercase tracking-wider
+           bg-military-600 text-white border border-military-700;
+  }
+  
+  .dark .badge-military {
+    @apply bg-military-700 border-military-600;
+  }
+  
+  /* Input สไตล์ทหาร */
+  .input-military {
+    @apply w-full px-4 py-3 rounded-lg
+           border-2 border-military-300 bg-white
+           text-military-900 focus:border-military-500 
+           focus:ring-2 focus:ring-military-500/20
+           transition-all duration-200
+           placeholder:text-military-400;
+  }
+  
+  .dark .input-military {
+    @apply border-military-600 bg-military-800
+           text-sand-100 focus:border-military-400
+           placeholder:text-military-500;
+  }
+}
+
+@layer utilities {
+
+  .text-ws1 {
+    @apply text-blue-600;
+  }
+  .dark .text-ws1 {
+    @apply text-black;
+  }
+
+  .text-ws2 {
+    @apply text-green-600;
+  }
+  .dark .text-ws2 {
+    @apply text-black;
+  }
+
+  .text-ws3 {
+    @apply text-purple-600;
+  }
+  .dark .text-ws3 {
+    @apply text-black;
+  }
+
+  .text-ws4 {
+    @apply text-orange-600;
+  }
+  .dark .text-ws4 {
+    @apply text-black;
+  }
+
+  .text-ws5 {
+    @apply text-red-600;
+  }
+  .dark .text-ws5 {
+    @apply text-black;
+  }
+
+  .text-ws6 {
+    @apply text-cyan-600;
+  }
+  .dark .text-ws6 {
+    @apply text-black;
+  }
+
+  .text-ws7 {
+    @apply text-lime-600;
+  }
+  .dark .text-ws7 {
+    @apply text-black;
+  }
+
+  .text-ws8 {
+    @apply text-pink-600;
+  }
+  .dark .text-ws8 {
+    @apply text-black;
+  }
+
+  .text-ws9 {
+    @apply text-amber-600;
+  }
+  .dark .text-ws9 {
+    @apply text-black;
+  }
+
+  .text-ws10 {
+    @apply text-rose-600;
+  }
+  .dark .text-ws10 {
+    @apply text-black;
+  }
+
+  .text-ws1-5 {
+    @apply text-blue-900;
+  }
+  .dark .text-ws1-5 {
+    @apply text-black;
+  }
+
+  .text-ws6-10 {
+    @apply text-blue-500;
+  }
+  .dark .text-ws6-10 {
+    @apply text-black;
+  }
+
+
+  .text-wa1 {
+    @apply text-emerald-600;
+  }
+  .dark .text-wa1 {
+    @apply text-black;
+  }
+
+  .text-wa11 {
+    @apply text-teal-600;
+  }
+  .dark .text-wa11 {
+    @apply text-black;
+  }
+
+  .text-wa2 {
+    @apply text-indigo-600;
+  }
+  .dark .text-wa2 {
+    @apply text-black;
+  }
+
+  .text-wa22 {
+    @apply text-violet-600;
+  }
+  .dark .text-wa22 {
+    @apply text-black;
+  }
+
+
+  .text-wdc1 {
+    @apply text-sky-600;
+  }
+  .dark .text-wdc1 {
+    @apply text-black;
+  }
+
+  .text-wdc11 {
+    @apply text-blue-700;
+  }
+  .dark .text-wdc11 {
+    @apply text-black;
+  }
+
+  .text-wdc2 {
+    @apply text-green-700;
+  }
+  .dark .text-wdc2 {
+    @apply text-black;
+  }
+
+  .text-wdc22 {
+    @apply text-purple-700;
+  }
+  .dark .text-wdc22 {
+    @apply text-black;
+  }
+
+  .text-wdc3 {
+    @apply text-orange-700;
+  }
+  .dark .text-wdc3 {
+    @apply text-black;
+  }
+
+  .text-wdc33 {
+    @apply text-red-700;
+  }
+  .dark .text-wdc33 {
+    @apply text-black;
+  }
+
+  .text-wdc4 {
+    @apply text-cyan-700;
+  }
+  .dark .text-wdc4 {
+    @apply text-black;
+  }
+
+  .text-wdc44 {
+    @apply text-pink-700;
+  }
+  .dark .text-wdc44 {
+    @apply text-black;
+  }
+
+  .text-wdc5 {
+    @apply text-amber-700;
+  }
+  .dark .text-wdc5 {
+    @apply text-black;
+  }
+  .text-wdc55 {
+    @apply text-rose-700;
+  }
+  .dark .text-wdc55 {
+    @apply text-black;
+  }
+
+  .text-wdc6 {
+    @apply text-fuchsia-700;
+  }
+  .dark .text-wdc6 {
+    @apply text-black;
+  }
+  .text-wdc66 {
+    @apply text-purple-800;
+  }
+  .dark .text-wdc66 {
+    @apply text-black;
+  }
+
+  .text-wdc7 {
+    @apply text-gray-700;
+  }
+  .dark .text-wdc7 {
+    @apply text-black;
+  }
+  .text-wdc77 {
+    @apply text-slate-700;
+  }
+  .dark .text-wdc77 {
+    @apply text-black;
+  }
+
+
+  .text-wn1 {
+    @apply text-blue-800;
+  }
+  .dark .text-wn1 {
+    @apply text-black;
+  }
+
+
+  .text-wrn1 {
+    @apply text-indigo-700;
+  }
+  .dark .text-wrn1 {
+    @apply text-black;
+  }
+
+  .text-wrn2 {
+    @apply text-violet-700;
+  }
+  .dark .text-wrn2 {
+    @apply text-black;
+  }
+
+  .text-wpn1 {
+    @apply text-green-700;
+  }
+  .dark .text-wpn1 {
+    @apply text-black;
+  }
+
+  .text-wpn2 {
+    @apply text-emerald-700;
+  }
+  .dark .text-wpn2 {
+    @apply text-black;
+  }
+
+  .text-wna1  {
+    @apply text-orange-700;
+  }
+  .dark .text-wna1 {
+    @apply text-black;
+  }
+  .text-wna2 {
+    @apply text-red-700;
+  }
+  .dark .text-wna2 {
+    @apply text-black;
+  }
+
+
+
+
+  .text-primary {
+    @apply text-gray-700;
+  }
+  
+  .dark .text-primary {
+    @apply text-white;
+  }
+  
+  .text-secondary {
+    @apply text-gray-600;
+  }
+  
+  .dark .text-secondary {
+    @apply text-sand-200;
+  }
+  
+  .text-heading {
+    @apply text-gray-900;
+  }
+  
+  .dark .text-heading {
+    @apply text-sand-50;
+  }
+  /* Custom Gradient Classes */
+  .bg-dropdown-logout {
+      @apply bg-red-200 hover:text-white  border-2 border-red-200 ;
+    }
+
+  .dark .bg-dropdown-logout {
+    @apply bg-gradient-to-r from-red-900 via-red-900 to-red-900 border-2 rounded-lg border-military-200;
+  }
+
+  .bg-gradient-header-row {
+    @apply bg-gradient-to-r bg-gradient-to-r from-blue-500 to-blue-600  border-2 border-military-200;
+  }
+
+  .dark .bg-gradient-header-row{
+    @apply bg-gradient-to-r from-military-900 via-military-900 to-military-900 border-2 border-military-200;
+  }
+
+  .bg-gradient-row {
+    @apply bg-gradient-to-r from-blue-200 to-indigo-50  border-2 border-blue-200;
+  }
+  .dark .bg-gradient-row {
+    @apply bg-gradient-to-r from-military-500 via-military-600 to-military-700 border-2 border-military-200;
+  }
+
+  .bg-gradient-header-a {
+    @apply bg-gradient-to-r from-blue-50 to-indigo-50  border-2 border-blue-200;
+  }
+  .dark .bg-gradient-header-a {
+    @apply bg-gradient-to-r from-military-700 via-military-800 to-military-900 border-2 border-military-200;
+  }
+
+  .bg-gradient-header-b {
+    @apply bg-gradient-to-r from-green-500 to-green-700 border-2 border-blue-200;
+  }
+
+  .dark .bg-gradient-header-b {
+    @apply bg-gradient-to-r from-green-900 to-green-900 border-2 border-military-200;
+  }
+
+  .bg-gradient-page {
+    @apply bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50;
+  }
+  
+  .dark .bg-gradient-page {
+    @apply from-military-900 via-military-950 to-military-800;
+  }
+  .bg-gradient-nav {
+    @apply bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-black;
+  }
+  
+  .dark .bg-gradient-nav {
+    @apply from-military-900 via-military-950 to-military-800 text-black;
+  }
+  
+  .bg-gradient-header {
+    @apply bg-gradient-to-r from-emerald-600 via-lime-600 to-green-600 border-2 border-green-200;
+  }
+  
+  .dark .bg-gradient-header {
+    @apply from-military-700 via-military-800 to-military-900 border-2 border-military-200;
+  }
+  
+  .bg-filter-section {
+    @apply bg-gradient-to-r from-blue-50 to-indigo-50 text-white border-2 border-blue-200;
+  }
+  
+  .dark .bg-filter-section {
+    @apply from-military-700 to-military-800 text-white border-2 border-military-200;
+  }
+
+  .bg-dropdown-user {
+    @apply bg-gradient-to-r from-blue-50 to-indigo-50 text-white border-2 border-blue-200;
+  }
+  
+  .dark .bg-dropdown-user {
+    @apply bg-gradient-to-r from-military-700 to-military-800 text-white border-2 border-military-200;
+  }
+
+  
+  .bg-gradient-row1 {
+    @apply bg-gradient-to-r from-blue-600 to-cyan-500 border-2 border-blue-300;
+  }
+  .dark .bg-gradient-row1 {
+    @apply bg-gradient-to-r from-military-600 to-military-700 dark:from-military-700 dark:to-military-800 border-2 border-military-800 dark:border-military-900;
+  }
+
+  .bg-gradient-row2 {
+    @apply bg-gradient-to-r from-emerald-600 to-green-500 border-2 border-emerald-300;
+  }
+  .dark .bg-gradient-row2 {
+    @apply bg-gradient-to-r from-lime-700 to-green-800 dark:from-lime-800 dark:to-green-900 border-2 border-lime-900 dark:border-green-950;
+  }
+
+  .bg-gradient-row3 {
+    @apply bg-gradient-to-r from-purple-600 to-pink-500 border-2 border-purple-300;
+  }
+  .dark .bg-gradient-row3 {
+    @apply bg-gradient-to-r from-amber-700 to-orange-800 dark:from-amber-800 dark:to-orange-900 border-2 border-amber-900 dark:border-orange-950;
+  }
+
+  .bg-gradient-row4 {
+    @apply bg-gradient-to-r from-amber-600 to-red-500 border-2 border-amber-300;
+  }
+  .dark .bg-gradient-row4 {
+    @apply bg-gradient-to-r from-red-800 to-red-900 dark:from-red-900 dark:to-red-950 border-2 border-red-950;
+  }
+
+  .bg-gradient-row5 {
+    @apply border-2 border-indigo-400/50 px-2 py-3 min-w-[50px] bg-gradient-to-br from-indigo-600 to-indigo-700 shadow-lg;
+  }
+  .dark .bg-gradient-row5 {
+    @apply border-2 border-indigo-800/50 px-2 py-3 min-w-[50px] bg-gradient-to-br from-indigo-600 to-indigo-700 shadow-lg;
+  }
+
+  .text-camo {
+    @apply text-military-600;
+  }
+  
+  .dark .text-camo {
+    @apply text-military-400;
+  }
+  
+  .bg-pattern-camo {
+    background-image: 
+      repeating-linear-gradient(
+        45deg, 
+        transparent, 
+        transparent 10px, 
+        rgba(90, 111, 90, 0.05) 10px, 
+        rgba(90, 111, 90, 0.05) 20px
+      );
+  }
+  
+  .dark .bg-pattern-camo {
+    background-image: 
+      repeating-linear-gradient(
+        45deg, 
+        transparent, 
+        transparent 10px, 
+        rgba(90, 111, 90, 0.15) 10px, 
+        rgba(90, 111, 90, 0.15) 20px
+      );
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-military-100;
+}
+
+.dark ::-webkit-scrollbar-track {
+  @apply bg-military-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-military-400 rounded-lg hover:bg-military-500;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-military-600 hover:bg-military-500;
+}
+
+/* Selection */
+::selection {
+  @apply bg-military-500 text-white;
+}
+
+.dark ::selection {
+  @apply bg-military-400 text-white;
+}

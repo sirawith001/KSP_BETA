@@ -1,0 +1,271 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model WardUser {
+  wardid      Int      @id @default(autoincrement())
+  warduser    String   @unique
+  wardpass    String
+  role        Role     @default(USER)
+  department  Department @default(USER)
+  wardname    String?
+  wardstatus  String?
+  warddest    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  workAdds    WorkAdd[]
+  workAddOuts WorkAddOut[]
+  workOpders  WorkOpder[]
+
+  // Relations ใหม่สำหรับระบบแจ้งเตือน
+  sentNotifications     Notification[] @relation("Sender")    // แจ้งเตือนที่ WardUser นี้เป็นคนส่ง
+  receivedNotifications Notification[] @relation("Receiver")  // แจ้งเตือนที่ WardUser นี้เป็นคนได้รับ
+
+  myTickets      ReportTicket[] @relation("Reporter")   // ปัญหาที่ User นี้เป็นคนแจ้ง
+  assignedTickets ReportTicket[] @relation("Assignee")  // ปัญหาที่ User นี้ (Admin/ช่าง) ต้องไปแก้
+
+  @@map("warduser")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Department {
+  USER
+  ADMINMINI
+  OPD
+  ER
+}
+
+model WorkCat {
+  catid      Int      @id @default(autoincrement())
+  catname    String   @unique
+  catnameopd String?
+  catnameer  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  // Relations
+  workAdds   WorkAdd[]
+  workOpders WorkOpder[]
+
+  @@map("workcat")
+}
+
+model WorkAdd {
+  wid       Int      @id @default(autoincrement())
+  // wid Int @id
+  // ระดับความรุนแรงผู้ป่วย (1-5)
+  ws1       Int      @default(0)
+  ws2       Int      @default(0)
+  ws3       Int      @default(0)
+  ws4       Int      @default(0)
+  ws5       Int      @default(0)
+  
+  // ฟิลด์สำรอง
+  ws6       Int      @default(0)
+  ws7       Int      @default(0)
+  ws8       Int      @default(0)
+  ws9       Int      @default(0)
+  ws10      Int      @default(0)
+  
+  // Admit (รับผู้ป่วย)
+  wa1       Int      @default(0)
+  wa2       Int      @default(0)
+  wa11      Int      @default(0)
+  wa22      Int      @default(0)
+  
+  // DC (Discharge)
+  wdc1      Int      @default(0)
+  wdc2      Int      @default(0)
+  wdc3      Int      @default(0)
+  wdc4      Int      @default(0)
+  wdc5      Int      @default(0)
+  wdc6      Int      @default(0)
+  wdc7      Int      @default(0)
+  
+  // ฟิลด์สำรอง DC
+  wdc11     Int      @default(0)
+  wdc22     Int      @default(0)
+  wdc33     Int      @default(0)
+  wdc44     Int      @default(0)
+  wdc55     Int      @default(0)
+  wdc66     Int      @default(0)
+  wdc77     Int      @default(0)
+  
+  // อื่นๆ
+  wn1       Int      @default(0)
+  
+  // บุคลากร - RN
+  wrn1      Int      @default(0)
+  wrn2      Int      @default(0)
+  
+  // บุคลากร - PN
+  wpn1      Int      @default(0)
+  wpn2      Int      @default(0)
+  
+  // บุคลากร - NA
+  wna1      Int      @default(0)
+  wna2      Int      @default(0)
+  
+  // Foreign Keys
+  catid     Int
+  wardid    Int
+  
+  // วันที่
+  wdates    DateTime
+  wdateth   String
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  category WorkCat @relation(fields: [catid], references: [catid], onDelete: Cascade, map: "workadd_catid_fkey")
+  ward     WardUser @relation(fields: [wardid], references: [wardid], onDelete: Cascade, map: "workadd_wardid_fkey")
+  
+  // ป้องกันบันทึกซ้ำ
+  // @@unique([wardid, wdates, catid])
+  @@index([wdates])
+  @@index([wardid])
+  @@index([catid])
+  @@map("workadd")
+}
+
+
+model WorkAddOut {
+  woid      Int      @id @default(autoincrement())
+  
+  wardid    Int
+  
+  wo1       Int      @default(0)
+  wo2       Int      @default(0)
+  wo3       Int      @default(0)
+  wo4       Int      @default(0)
+  wo5       Int      @default(0)
+  
+  wocomment String?  @db.Text
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ward      WardUser @relation(fields: [wardid], references: [wardid], onDelete: Cascade, map: "workaddout_wardid_fkey")
+  
+  @@index([wardid])
+  @@map("workaddout")
+}
+
+
+model WorkOpder {
+  wopderid  Int      @id @default(autoincrement())
+  
+  wopderg1  Int      @default(0)
+  wopderg2  Int      @default(0)
+  wopderg3  Int      @default(0)
+  wopderg4  Int      @default(0)
+  wopderg5  Int      @default(0)
+  wopderg6  String?  @db.VarChar(255)
+
+  wardid    Int
+  catid     Int?
+
+  wopderdate DateTime?
+
+
+  ward      WardUser  @relation(fields: [wardid], references: [wardid], onDelete: Cascade, map: "workopder_wardid_fkey")
+  category  WorkCat?  @relation(fields: [catid], references: [catid], onDelete: SetNull, map: "workopder_catid_fkey")
+
+  @@index([wopderdate])
+  @@index([wardid])
+  @@index([catid])
+  @@map("workopder")
+}
+
+
+model Notification {
+  notid     Int      @id @default(autoincrement())
+  title     String   // หัวข้อแจ้งเตือน
+  message   String   @db.Text // เนื้อหา
+  isRead    Boolean  @default(false) // สถานะการอ่าน (true = อ่านแล้ว)
+  type      String   @default("INFO") // INFO, WARNING, URGENT (เผื่อแยกสี)
+  
+  // Relations
+  senderId    Int?   // คนส่ง (Admin) - ใส่ ? เผื่อกรณีเป็น System ส่งเองอัตโนมัติ
+  receiverId  Int    // คนรับ (User/Ward)
+
+  sender      WardUser? @relation("Sender", fields: [senderId], references: [wardid], onDelete: SetNull)
+  receiver    WardUser  @relation("Receiver", fields: [receiverId], references: [wardid], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([receiverId]) // เพื่อความเร็วในการ query แจ้งเตือนของ user คนนั้น
+  @@index([isRead])     // เผื่อ query นับจำนวนที่ยังไม่อ่าน
+  @@map("notification")
+}
+
+model ReportTicket {
+  ticketId    Int      @id @default(autoincrement())
+  
+  title       String   // หัวข้อปัญหา
+  description String?  @db.Text // รายละเอียดเพิ่มเติม
+  photoUpload String?  @db.LongText
+  location    String?  
+  
+  // สถานะงาน
+  status      TicketStatus @default(PENDING)
+  
+  // ประเภทปัญหา
+  category    TicketType   @default(GENERAL)
+  
+  // ความเร่งด่วน
+  priority    TicketPriority @default(NORMAL)
+
+  // วันที่
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  finishedAt  DateTime? // วันที่แก้เสร็จ
+
+  // Relations
+  reporterId  Int      // คนแจ้ง (User)
+  assigneeId  Int?     // คนรับผิดชอบงาน (Admin/ช่าง) - เป็น Null ได้ตอนแรก
+
+  reporter    WardUser  @relation("Reporter", fields: [reporterId], references: [wardid])
+  assignee    WardUser? @relation("Assignee", fields: [assigneeId], references: [wardid])
+
+  @@index([status]) // เพื่อดึงงานที่ยังไม่เสร็จง่ายๆ
+  @@index([reporterId])
+  @@map("report_ticket")
+}
+
+enum TicketStatus {
+  PENDING     // รอดำเนินการ (เพิ่งแจ้ง)
+  IN_PROGRESS // กำลังแก้ไข (รับงานแล้ว)
+  RESOLVED    // แก้ไขเสร็จสิ้น
+  CANCELLED   // ยกเลิก
+}
+
+enum TicketType {
+  SYSTEM     // ระบบ
+  GENERAL     // ทั่วไป
+}
+
+enum TicketPriority {
+  LOW
+  NORMAL
+  HIGH
+  CRITICAL    // ด่วนที่สุด
+}
