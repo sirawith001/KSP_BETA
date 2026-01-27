@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -222,7 +222,8 @@ model ReportTicket {
   
   title       String   // หัวข้อปัญหา
   description String?  @db.Text // รายละเอียดเพิ่มเติม
-  photoUpload String?  @db.LongText
+  photoUpload String?  @db.Text
+  // photoUpload String?  @db.LongText
   location    String?  
   
   // สถานะงาน
