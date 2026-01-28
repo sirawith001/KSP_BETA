@@ -293,21 +293,21 @@ export default function OpderAddWorkPage() {
 
               {/* Year Selector */}
               <select 
-                value={selectedYear}
-                onChange={(e) => setSelectedYear(e.target.value)}
-                className="duration-500 hover:-translate-y-1 hover:shadow-lg bg-white text-gray-800 border-2 border-blue-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all cursor-pointer shadow-sm hover:bg-lime-50"
-              >
-                <option value="">ปี พ.ศ. [ค.ศ.]</option>
-                {Array.from({ length: 15 }, (_, i) => {
-                  const adYear = 2026 - i
-                  const beYear = adYear + 543
-                  return (
-                    <option key={adYear} value={adYear}>
-                      {beYear}-[{adYear}]
-                    </option>
-                  )
-                })}
-              </select>
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(e.target.value)}
+              className="duration-500 hover:-translate-y-1 hover:shadow-lg bg-white text-gray-800 border-2 border-blue-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all cursor-pointer shadow-sm hover:bg-green-50"
+            >
+              <option value="">ปี พ.ศ. [ค.ศ.]</option>
+              {Array.from({ length: 30 }, (_, i) => {
+                const gregorianYear = 2029 - i
+                const buddhYear = gregorianYear + 543
+                return (
+                  <option key={gregorianYear} value={gregorianYear}>
+                    {buddhYear}-[{gregorianYear}]
+                  </option>
+                )
+              })}
+            </select>
 
               {/* Category Selector */}
               <div className="flex items-center gap-2">

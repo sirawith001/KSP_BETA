@@ -261,11 +261,29 @@ export default function OpdErrReportAllSumPage() {
           <meta charset="UTF-8">
           <title>สรุปยอดภาระงานประจำวัน</title>
           <style>
-            body { font-family: 'Angsana New', Arial, sans-serif; padding: 20px; }
-            h1, h2, h3 { text-align: center; }
+            /* ปรับขนาดฟอนต์พื้นฐานที่นี่ */
+            body { 
+                font-family: 'Angsana New', Arial, sans-serif; 
+                padding: 20px; 
+                font-size: 18pt; /* เพิ่มขนาดฟอนต์รวม */
+            }
+            
+            /* ปรับขนาดหัวข้อ */
+            h1 { text-align: center; font-size: 24pt; margin-bottom: 5px; }
+            h2 { text-align: center; font-size: 22pt; }
+            h3 { text-align: center; font-size: 20pt; margin-top: 5px; }
+            
             .header { text-align: center; margin-bottom: 20px; }
             table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-            th, td { border: 1px solid #000; padding: 10px; text-align: center; }
+            
+            /* ปรับขนาดฟอนต์ในตาราง */
+            th, td { 
+                border: 1px solid #000; 
+                padding: 10px; 
+                text-align: center; 
+                font-size: 16pt; /* เพิ่มขนาดฟอนต์ในตาราง */
+            }
+            
             th { background-color: #ddd; font-weight: bold; }
             .text-left { text-align: left; }
             .summary { text-align: center; margin-top: 20px; font-weight: bold; }
@@ -312,7 +330,7 @@ export default function OpdErrReportAllSumPage() {
           </table>
         </body>
         </html>
-      `
+      `;
 
       printWindow.document.write(htmlContent)
       printWindow.document.close()
@@ -384,8 +402,8 @@ export default function OpdErrReportAllSumPage() {
               className="duration-500 hover:-translate-y-1 hover:shadow-lg bg-white text-gray-800 border-2 border-blue-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all cursor-pointer shadow-sm hover:bg-green-50"
             >
               <option value="">ปี พ.ศ. [ค.ศ.]</option>
-              {Array.from({ length: 20 }, (_, i) => {
-                const gregorianYear = 2026 - i
+              {Array.from({ length: 30 }, (_, i) => {
+                const gregorianYear = 2029 - i
                 const buddhYear = gregorianYear + 543
                 return (
                   <option key={gregorianYear} value={gregorianYear}>

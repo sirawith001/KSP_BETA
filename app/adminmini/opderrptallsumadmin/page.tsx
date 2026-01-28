@@ -182,7 +182,7 @@ export default function AdminOpdErrReportPage() {
         row.eachCell((cell: any) => {
           cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: bgColor } }
           cell.alignment = { horizontal: 'center', vertical: 'middle' }
-          cell.font = { name: 'Angsana New', size: 11 }
+          cell.font = { name: 'Angsana New', size: 16 }
           cell.border = {
             top: { style: 'thin', color: { argb: 'FF000000' } },
             left: { style: 'thin', color: { argb: 'FF000000' } },
@@ -206,7 +206,7 @@ export default function AdminOpdErrReportPage() {
         ''
       ])
       
-      summaryRow.font = { bold: true, color: { argb: 'FFFFFFFF' }, name: 'Angsana New', size: 12 }
+      summaryRow.font = { bold: true, color: { argb: 'FFFFFFFF' }, name: 'Angsana New', size: 16 }
       
       summaryRow.eachCell((cell: any) => {
         cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFF9900' } }
@@ -292,7 +292,7 @@ export default function AdminOpdErrReportPage() {
                 font-family: 'Sarabun', 'Angsana New', Arial, sans-serif; 
                 padding: 15px;
                 background-color: white;
-                font-size: 16px;
+                font-size: 20px;
               }
               
               .header { 
@@ -552,7 +552,7 @@ export default function AdminOpdErrReportPage() {
             >
               <option value="">ปี พ.ศ. [ค.ศ.]</option>
               {Array.from({ length: 30 }, (_, i) => {
-                const gregorianYear = 2025 - i
+                const gregorianYear = 2029 - i
                 const buddhYear = gregorianYear + 543
                 return (
                   <option key={gregorianYear} value={gregorianYear}>

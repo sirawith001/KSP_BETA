@@ -43,6 +43,8 @@ export default function PrintReportPage() {
   useEffect(() => {
     // Add class to hide layout elements
     document.body.classList.add('print-mode');
+
+    document.title = `สรุปยอดภาระงาน_${wardName}_${displayDate}`;
     
     const fetchData = async () => {
       try {
@@ -207,6 +209,46 @@ export default function PrintReportPage() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-black">
+      {/* ส่วนที่เพิ่มเข้าไปใหม่: CSS สำหรับการสั่ง Print */}
+      <style jsx global>{`
+        @media print {
+          /* ซ่อนปุ่มและคลาส no-print ทุกตัว */
+          .no-print {
+            display: none !important;
+          }
+
+          /* ซ่อนองค์ประกอบอื่นๆ ที่อาจติดมาจาก Layout หลัก */
+          header, footer, nav, aside {
+            display: none !important;
+          }
+          
+          /* บังคับหน้ากระดาษและระยะขอบ */
+          @page {
+            size: landscape; /* แนวนอน */
+            margin: 10mm; /* ระยะขอบ */
+          }
+
+          /* ปรับแต่ง Body ให้เหมาะกับการพิมพ์ */
+          body {
+            background: white !important;
+            color: black !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+
+          /* ป้องกันตารางล้น */
+          table {
+            width: 100% !important;
+            page-break-inside: auto;
+          }
+          
+          tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+          }
+        }
+      `}</style>
+
       <div className="print-container">
         <div className="text-center mb-4">
           <h1 className="text-xl font-bold mb-1">
